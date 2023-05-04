@@ -128,15 +128,18 @@ extension on String {
         throw KlutterException("FlutterEngine.xcframework does not exist.");
       }
 
-      final pathFrom = Directory(source.path);
-      final pathTo =
-          Directory("$pathToIos/Klutter/FlutterEngine.xcframework").maybeCreate;
-      final result = Process.runSync(
-        "cp",
-        ["-R", pathFrom.absolutePath, pathTo.absolutePath],
-      );
-      stdout.write(result.stdout);
-      stderr.write(result.stderr);
+      final pathFrom = Directory(source.path.replaceFirst("/", "").normalize);
+      final pathTo = Directory("$pathToIos/Klutter").maybeCreate;
+
+      // For some reason this fails to find the folder to copy but 
+      // copy-pasting the command into a terminal works fine??
+      print("RUN THE FOLLOWING COMMAND...")
+      print("cp ${pathFrom.absolutePath.normalize} ${pathTo.absolutePath}");
+      // final result = Process.runSync(
+      //   "cp", [pathFrom.absolutePath.normalize, pathTo.absolutePath],
+      // );
+      // stdout.write(result.stdout);
+      // stderr.write(result.stderr);
     });
   }
 }

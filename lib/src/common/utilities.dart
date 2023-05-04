@@ -96,7 +96,7 @@ extension FileUtil on FileSystemEntity {
     }
 
     final path = normalized.join(Platform.pathSeparator);
-    return path.startsWith(Platform.pathSeparator)
+    return Platform.isWindows || path.startsWith(Platform.pathSeparator)
         ? path
         : Platform.pathSeparator + path;
   }

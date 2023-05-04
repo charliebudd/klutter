@@ -201,7 +201,8 @@ extension on File {
 
   /// Get value of tag 'flutter:plugin:platforms:android:package' from pubspec.yaml.
   String get packageName {
-    final content = readAsStringSync().replaceAll(" ", "").replaceAll("\n", "");
+    // print(readAsStringSync());
+    final content = readAsStringSync().replaceAll(" ", "").replaceAll(new RegExp(r'\s+'), "");
     final startIndex = content.indexOf("android:package:");
     final endIndex = content.indexOf("pluginClass:");
 
